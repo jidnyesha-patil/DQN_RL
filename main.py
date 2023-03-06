@@ -4,7 +4,7 @@ from environment import Environment
 
 
 def parse():
-    parser = argparse.ArgumentParser(description="DS595/CS525 RL Project 3")
+    parser = argparse.ArgumentParser(description="DQN")
     parser.add_argument('--env_name', default=None, help='environment name')
     parser.add_argument('--train_dqn', action='store_true', help='whether train DQN')
     parser.add_argument('--test_dqn', action='store_true', help='whether test DQN')

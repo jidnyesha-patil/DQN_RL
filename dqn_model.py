@@ -28,8 +28,14 @@ class DQN(nn.Module):
         member variables.
         """
         super(DQN, self).__init__()
-        ###########################
-        # YOUR IMPLEMENTATION HERE #
+        self.conv1 = nn.Conv2d(in_channels, 32, kernel_size = 8, stride = 4)
+        self.conv2 = nn.Conv2d(32, 64, kernel_size = 4, stride = 2)
+        self.conv3 = nn.Conv2d(64, 64, kernel_size = 3, stride = 1)
+        self.flatten = nn.Flatten()
+        self.fc1 = nn.Linear(7 * 7 * 64, 512)
+        self.fc2 = nn.Linear(512, 128)
+        self.fc3 = nn.Linear(128, num_actions)
+        self.float()
 
     def forward(self, x):
         """
@@ -37,8 +43,12 @@ class DQN(nn.Module):
         a Tensor of output data. We can use Modules defined in the constructor as
         well as arbitrary operators on Tensors.
         """
-        ###########################
-        # YOUR IMPLEMENTATION HERE #
+        x = F.relu(self.conv1(x))
+        x = F.relu(self.conv2(x))
+        x = F.relu(self.conv3(x))
+        x = self.flatten(x)
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
 
-        ###########################
-        return x
+        return x.float()
